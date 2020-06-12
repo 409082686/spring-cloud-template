@@ -1,0 +1,21 @@
+server:
+  port: 6999
+
+spring:
+  application:
+    name: zuul-gateway
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:7000/eureka/
+
+
+zuul:
+  retryable: true
+  routes:
+    server0:
+      path: /server0/**
+      serviceId: server0
+      stripPrefix: false
+

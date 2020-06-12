@@ -1,0 +1,17 @@
+server:
+  port: 7002
+
+spring:
+  application:
+    name: server2
+
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:7000/eureka/
+
+
+logging:
+  level:
+    com.lc.template.server2: debug
