@@ -1,25 +1,34 @@
 package com.lc.template.server1.service;
 
-
+import com.alibaba.fastjson.JSONObject;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.servlet.http.HttpServletRequest;
-import java.util.Enumeration;
 
 @RequestMapping("/strong")
 @RestController
 public class StrongController {
 
 
-    @RequestMapping("/accept")
-    public String accept(HttpServletRequest request) {
-        Enumeration<?> enum1 = request.getHeaderNames();
-        while (enum1.hasMoreElements()) {
-            String key = (String) enum1.nextElement();
-            String value = request.getHeader(key);
-            System.out.println(key + ": \t" + value);
-        }
-        return "success";
+    @RequestMapping("/UploadDate")
+    public String uploadDate(@RequestParam("Code") String code, @RequestParam("Body") String body) {
+        System.out.println("-----code:" + code);
+        System.out.println("-----body:" + body);
+        JSONObject jsonObject = JSONObject.parseObject(body);
+        Integer d_sync = (Integer) jsonObject.get("d_sync");
+        return "{\"id\":\"0xF0\",\"d_sync\":" + d_sync + "}";
     }
+
+    @PostMapping("/DownloadData")
+    public String downloadData(@RequestParam("Code") String code, @RequestParam("Body") String body, @RequestParam(value = "isLogin", required = false) String isLogin) {
+        System.out.println("-----code:" + code);
+        System.out.println("-----body:" + body);
+        System.out.println("-----isLogin:" + isLogin);
+//        JSONObject jsonObject = JSONObject.parseObject(body);
+//        Integer d_sync = (Integer) jsonObject.get("d_sync");
+        //return "{\"id\":\"0xF0\",\"d_sync\":" + d_sync + "}";
+        return "{\"id\":\"0xF0\",\"d_sync\": 0 }";
+    }
+
 }
